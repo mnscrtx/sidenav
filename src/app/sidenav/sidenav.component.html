@@ -1,0 +1,61 @@
+<ng-container>
+  <mat-toolbar class="example-header">
+    <div>Header</div>
+    <mat-tab-group>
+      <mat-tab label="First"></mat-tab>
+      <mat-tab label="Second"></mat-tab>
+      <mat-tab label="Third"></mat-tab>
+    </mat-tab-group>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
+                 [fixedInViewport]="options.value.fixed" [fixedTopGap]="options.value.top"
+                 [fixedBottomGap]="options.value.bottom">
+      <mat-nav-list>
+        <mat-list-item>
+          <mat-icon>home</mat-icon>
+          <span>Pepper</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon>save</mat-icon>
+          <span>Salt</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon>cancel</mat-icon>
+          <span>Paprika</span>
+        </mat-list-item>
+      </mat-nav-list>
+
+      <ng-container *ngFor="let item of cardList">
+        <app-card [id]="item" [routerLink]="item.toString()" routerLinkActive #rla="routerLinkActive" [isActive]="rla.isActive" style="cursor: pointer"></app-card>
+      </ng-container>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content [formGroup]="options">
+      <p>
+        <mat-checkbox formControlName="fixed">Fixed</mat-checkbox>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Top gap</mat-label>
+          <input matInput type="number" formControlName="top">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Bottom gap</mat-label>
+          <input matInput type="number" formControlName="bottom">
+        </mat-form-field>
+      </p>
+      <p>
+        <button mat-button (click)="sidenav.toggle()">Toggle</button>
+      </p>
+      <mat-divider></mat-divider>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <mat-toolbar class="example-footer">Footer</mat-toolbar>
+</ng-container>
